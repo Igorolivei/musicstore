@@ -24,3 +24,24 @@
 <!--<%=session[:admin_logado]%>
 <%=session[:cliente_logado]%>
 Produtos aleatórios nesse lugar-->
+<!-- Lista produtos lançados recentemente -->
+<p>Produtos Lançados:<br/>
+<% @resultado = ActiveRecord::Base.connection.execute("select DISTINCT id from produtos ORDER BY id DESC LIMIT 10") 
+    i = 0;
+    @resultado.each do |row| %>
+	<!--ai dentro desse each vc acessa row como uma hash-->
+		<%  @var = Produto.find(row[i]) %> 
+		<%= @var.nome %>
+		<% i = i + 1 %>
+	<% end %> </p>
+<!-- Lista mais vendidos -->
+<p>Mais comprados: <br/>
+<% @resultado = ActiveRecord::Base.connection.execute("select p.id AS Produto, COUNT(v.id_produto) AS Vendas from produtosvendidos v INNER JOIN produtos p ON p.id = v.id_produto GROUP BY p.id ORDER BY count(v.id_produto) DESC LIMIT 10") 
+    i = 0;
+    @resultado.each do |row| %>
+    <!--ai dentro desse each vc acessa row como uma hash--> 
+	<%  @var = Produto.find(row[i]) %> 
+	<%= @var.nome %>
+	<%= row[i]%>
+	<% i = i + 1 %>
+	<% end %> </p>
