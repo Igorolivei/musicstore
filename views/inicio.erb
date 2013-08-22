@@ -25,23 +25,25 @@
 <%=session[:cliente_logado]%>
 Produtos aleatórios nesse lugar-->
 <!-- Lista produtos lançados recentemente -->
-<p>Produtos Lançados:<br/>
-<% @resultado = ActiveRecord::Base.connection.execute("select DISTINCT id from produtos ORDER BY id DESC LIMIT 10") 
-    i = 0;
+<h3>Produtos Lançados:</h3><br/>
+<% @resultado = ActiveRecord::Base.connection.execute("select DISTINCT id from produtos ORDER BY id DESC LIMIT 10")  
     @resultado.each do |row| %>
 	<!--ai dentro desse each vc acessa row como uma hash-->
-		<%  @var = Produto.find(row[i]) %> 
-		<%= @var.nome %>
-		<% i = i + 1 %>
-	<% end %> </p>
+		<%  @var = Produto.find(row[0]) %> 
+		Produto: <%= @var.nome %> </br>
+		Ano: <%= @var.ano %> </br>
+		<% artista = Artista.where("id IN (?)", @var.id_artista).first %> 
+		Artista: <%= artista.nome %><br/><br/>
+	<% end %> </br></br>
+
 <!-- Lista mais vendidos -->
-<p>Mais comprados: <br/>
-<% @resultado = ActiveRecord::Base.connection.execute("select p.id AS Produto, COUNT(v.id_produto) AS Vendas from produtosvendidos v INNER JOIN produtos p ON p.id = v.id_produto GROUP BY p.id ORDER BY count(v.id_produto) DESC LIMIT 10") 
-    i = 0;
+<h3>Mais comprados: </h3><br/>
+<% @resultado = ActiveRecord::Base.connection.execute("select p.id AS Produto, COUNT(v.id_produto) AS Vendas from produtosvendidos v INNER JOIN produtos p ON p.id = v.id_produto GROUP BY p.id ORDER BY count(v.id_produto) DESC LIMIT 10")  
     @resultado.each do |row| %>
     <!--ai dentro desse each vc acessa row como uma hash--> 
-	<%  @var = Produto.find(row[i]) %> 
-	<%= @var.nome %>
-	<%= row[i]%>
-	<% i = i + 1 %>
-	<% end %> </p>
+	<%  @var = Produto.find(row[0]) %> 
+	Produto:<%= @var.nome %> </br>
+	Ano:<%= @var.ano %> </br>
+	<% artista = Artista.where("id IN (?)", @var.id_artista).first %> 
+		Artista: <%= artista.nome %><br/><br/>
+	<% end %> </br></br>
