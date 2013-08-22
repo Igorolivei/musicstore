@@ -30,7 +30,7 @@ Produtos aleatórios nesse lugar-->
     i = 0;
     @resultado.each do |row| %>
 	<!--ai dentro desse each vc acessa row como uma hash-->
-		<%  @var = Produto.find(row[i]) %> 
+		<%  @var = Produto.find(row) %> 
 		<%= @var.nome %>
 		<% i = i + 1 %>
 	<% end %> </p>
@@ -40,7 +40,7 @@ Produtos aleatórios nesse lugar-->
     i = 0;
     @resultado.each do |row| %>
     <!--ai dentro desse each vc acessa row como uma hash--> 
-	<%  @var = Produto.find(row[i]) %> 
+	<% @var = Produto.find(row[i]) %> 
 	<%= @var.nome %>
 	<%= row[i]%>
 	<% i = i + 1 %>
