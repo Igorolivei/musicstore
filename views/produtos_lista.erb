@@ -2,6 +2,11 @@
 
 <% if @produtos != nil %>
 	<ul>
+	Busca:
+	<form action="/produtos_busca" method="get">
+		<input name="busca" type="text"/>
+		<input type="submit" value="buscar"/>
+	</form>
 	<% @produtos.each do |produto| %>
 		<li>
 			Nome: <%= produto.nome.capitalize %><br/>

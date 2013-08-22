@@ -1,0 +1,35 @@
+<h1>Resultados da busca</h1>
+
+<% if @produto != nil 
+	@produto.each do |p|%>
+	<li>
+			Nome: <%= p.nome.capitalize %><br/>
+			Artista:
+				<% @artistas.each do |a| %>
+					<%=a.nome%>
+				<% end %><br/>
+			Gênero:
+				<% @generos.each do |g| %> 
+					<%= g.genero.capitalize %>
+				<% end %><br/>
+			<% tipo = Tipo.where("id IN (?)", p.id_tipo).first %>
+			Tipo: <%= tipo.tipo %><br/>
+			Preço: R$ <%= p.preco %><br/>
+		<form action="/carrinho_add" method="post">
+			<input name="id_carrinho" value="<%=p.id%>" type="hidden"/>
+			<input type="submit" value="Adicionar ao carrinho"/>
+		</form>
+		<%if session[:admin_logado] != nil && session[:admin_logado] != []%> 
+			<form action="/produtos_editar" method="get">
+				<input name="id_editar" value="<%=p.id%>" type="hidden"/>
+				<input type="submit" value="Editar produto"/>
+			</form>
+			<form action="/produtos_remover" method="post">
+				<input name="id_remover" value="<%=p.id%>" type="hidden"/>
+				<input type="submit" value="Remover produto"/>
+			</form>
+		<%end%>
+	</li>
+	<%end%>
+<%end%>
+

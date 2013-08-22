@@ -227,3 +227,23 @@ post "/editar_venda" do
   @venda.save
   redirect '/vendas_lista'
 end
+
+get "/produtos_busca" do
+  @tipos = Tipo.all
+  @generos = Genero.all
+  @artistas = Artista.all
+  @produto = Produto.where("nome LIKE ?", params[:busca]+'%')
+
+  @produto_busca = params[:busca]
+
+  erb :produtos_busca
+end
+
+get "/clientes_busca" do
+  @clientes = Usuario.where("tipo_usuario = 1")
+  @cliente = Usuario.where("tipo_usuario = 1 AND nome LIKE ?", params[:busca]+'%')
+
+  @produto_busca = params[:busca]
+
+  erb :clientes_busca
+end

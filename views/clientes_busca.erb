@@ -1,0 +1,16 @@
+<h1>Resultados da busca</h1>
+
+<% if @cliente != nil 
+	@cliente.each do |cliente|%>
+	<ul>
+		<% @cliente.each do |cliente| %>
+			<li><%= cliente.nome.capitalize %> / <%= cliente.email %>
+				<form action="/clientes_remover" method="post">
+					<input name="id_remover" value="<%=cliente.id%>" type="hidden"/>
+					<input type="submit" value="Remover cliente"/>
+				</form>
+			</li>
+		<% end %>
+	</ul>
+	<%end%>
+<%end%>

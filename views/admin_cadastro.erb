@@ -1,9 +1,13 @@
-<h1>Cadastre aqui um novo administrador</h1>
+<% if session[:admin_logado] == nil || session[:admin_logado] == []
+	redirect '/'%>
+<% else %>
+	<h1>Cadastre aqui um novo administrador</h1>
 
-<form action="/admin_cadastro" method="post" >
-	Nome: <input type="text" name="nome"/>
-	E-mail: <input type="text" name="email"/>
-	Senha: <input type="password" name="senha"/>
-	Confirmação de senha: <input type="password" name="confirma_senha"/>
-	<input type="submit" value="Cadastrar" />
-</form>
+	<form action="/admin_cadastro" method="post" >
+		Nome: <input type="text" name="nome"/>
+		E-mail: <input type="text" name="email"/>
+		Senha: <input type="password" name="senha"/>
+		Confirmação de senha: <input type="password" name="confirma_senha"/>
+		<input type="submit" value="Cadastrar" />
+	</form>
+<% end %>

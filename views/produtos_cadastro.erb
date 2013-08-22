@@ -1,26 +1,30 @@
-<h1>Cadastre aqui novos produtos</h1>
+<% if session[:admin_logado] == nil || session[:admin_logado] == []
+	redirect '/'%>
+<% else %>
+	<h1>Cadastre aqui novos produtos</h1>
 
-<form action="/produtos_cadastro" method="post" >
-	Nome: <input type="text" name="nome"/>
-	Preço: <input type="text" name="preco"/>
-	Ano: <input type="text" name="ano" />
-	Artista:
-	<select name="artista">
-		<% @artistas.each do |a| %>
-			<option value="<%= a.id %>"><%=a.nome%></option>
-		<% end %>
-	</select>
-	Gênero:
-	<select name="genero">
-		<% @generos.each do |g| %> 
-			<option value="<%= g.id %>"><%= g.genero.capitalize %></option>
-		<% end %>
-	</select>
-	Tipo:
-	<select name="tipo">
-		<% @tipos.each do |t| %> 
-			<option value="<%= t.id %>"><%= t.tipo %></option>
-		<% end %>
-	</select>
-	<input type="submit" value="Salvar" />
-</form>
+	<form action="/produtos_cadastro" method="post" >
+		Nome: <input type="text" name="nome"/>
+		Preço: <input type="text" name="preco"/>
+		Ano: <input type="text" name="ano" />
+		Artista:
+		<select name="artista">
+			<% @artistas.each do |a| %>
+				<option value="<%= a.id %>"><%=a.nome%></option>
+			<% end %>
+		</select>
+		Gênero:
+		<select name="genero">
+			<% @generos.each do |g| %> 
+				<option value="<%= g.id %>"><%= g.genero.capitalize %></option>
+			<% end %>
+		</select>
+		Tipo:
+		<select name="tipo">
+			<% @tipos.each do |t| %> 
+				<option value="<%= t.id %>"><%= t.tipo %></option>
+			<% end %>
+		</select>
+		<input type="submit" value="Salvar" />
+	</form>
+<% end %>
