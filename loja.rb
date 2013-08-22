@@ -106,9 +106,14 @@ post '/cliente_cadastro' do
   if params[:senha] != nil && params[:senha] == params[:confirma_senha]
     @cliente = Usuario.new(:nome => params[:nome], :email => params[:email], :senha => params[:senha], :tipo_usuario => 1)
     @cliente.save
-    session[:cliente_logado] = @cliente.id
-  #else
-    #mostrar alguma mensagem de erro
+    if session[:admin_logado] == nil || session[:admin_logado] == [] && session[:cliente_logado] == nil || session[:cliente_logado] == []
+      session[:admin_logado] = []
+      session[:cliente_logado] = @cliente.id
+    else
+      redirect '/clientes_cadastro'
+    end
+  else
+    redirect '/clientes_cadastro'
   end
   redirect '/'
 end

@@ -10,7 +10,7 @@
 		E-mail: <input type="text" name="email"/>
 		Senha: <input type="password" name="senha"/>
 		<input type="submit" value="Login" /><br/>
-		<a href="/cliente_cadastro">Ainda não tem cadastro? Faça agora. É rápido e fácil :D</a>
+		<a href="/clientes_cadastro">Ainda não tem cadastro? Faça agora. É rápido e fácil :D</a>
 	</form>
 <%else%>
 	<% if session[:admin_logado] != nil && session[:admin_logado] != [] %>
@@ -21,6 +21,6 @@
 		<p>Bem vindo, Sr(a). <%= usuario.nome.capitalize %></p>
 	<% end %>
 <%end%>
-<%=session[:admin_logado]%>
+<!--<%=session[:admin_logado]%>
 <%=session[:cliente_logado]%>
-<!-- Produtos aleatórios nesse lugar-->
+Produtos aleatórios nesse lugar-->
