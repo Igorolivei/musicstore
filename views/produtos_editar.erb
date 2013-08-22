@@ -1,0 +1,29 @@
+<h1>Edite seu produto</h1>
+
+<% @produtos_editar.each do |produto| %>
+<form action="/produtos_editar" method="post" >
+	<input name="id_editar" value="<%=produto.id%>" type="hidden" />
+	Nome: <input type="text" name="nome_editar" value="<%=produto.nome%>"/>
+	Preço: <input type="text" name="preco_editar" value="<%=produto.preco%>"/>
+	Ano: <input type="text" name="ano" value="<%=produto.ano%>"/>
+	Artista:
+	<select name="artista">
+		<% @artistas.each do |a| %>
+			<option value="<%= a.id %>"><%=a.nome%></option>
+		<% end %>
+	</select>
+	Gênero:
+	<select name="genero">
+		<% @generos.each do |g| %> 
+			<option value="<%= g.id %>"><%= g.genero.capitalize %></option>
+		<% end %>
+	</select>
+	Tipo:
+	<select name="tipo">
+		<% @tipos.each do |t| %> 
+			<option value="<%= t.id %>"><%= t.tipo %></option>
+		<% end %>
+	</select>
+	<input type="submit" value="Salvar" />
+</form>
+<% end %>

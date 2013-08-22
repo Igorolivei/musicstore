@@ -1,0 +1,26 @@
+<h1>Veja e edite aqui as vendas</h1>
+
+<% if @vendas != nil %>
+	<ul>
+		<% @vendas.each do |v| %>
+		<li>
+		<% usuario = Usuario.where("id IN (?)", v.id_usuario).first %>
+		Cliente: <%= usuario.nome %>
+		Valor da compra: <%= v.valor_total %>
+		<% status = Statu.where("id IN(?)", v.id_status.first %>
+		Status: <%= status.status %>
+		<form method="post" action="/editar_venda">
+			<select name="status">
+				<% @status.each do |s| %> 
+					<option value="<%= s.id %>"><%= s.status %></option>
+				<% end %>
+			</select>
+			<input type="hidden" value="<%=v.id%>" name="venda_editar"/>
+			<input type="submit" value="Atualizar Status"/>
+		</form>
+		</li>
+		<% end %>
+	</ul>
+<% else %>
+	<p>Sem vendas. Que loja fraca, hein?</p>
+<% end %>

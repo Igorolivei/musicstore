@@ -1,0 +1,16 @@
+<h1>Veja aqui os clientes cadastrados</h1>
+
+<% if @clientes != nil %>
+	<ul>
+	<% @clientes.each do |cliente| %>
+		<li><%= cliente.nome.capitalize %> / <%= cliente.email %>
+			<form action="/clientes_remover" method="post">
+				<input name="id_remover" value="<%=cliente.id%>" type="hidden"/>
+				<input type="submit" value="Remover cliente"/>
+			</form>
+		</li>
+	<% end %>
+	</ul>
+<% else %>
+	Sem clientes. Nothing to do here.
+<% end %>

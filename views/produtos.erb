@@ -1,0 +1,14 @@
+﻿<h1>Produtos</h1>
+
+<% if @produtos != nil %>
+	<ul>
+	<% @produtos.each do |produto| %>
+		<li><%= produto.nome %> => <%= produto.preco %>
+		<!--<form action="/carrinho" method="post"><input type="submit" value="Adicionar ao carrinho"/></form>-->
+		</li>
+	<% end %>
+	</ul>
+<% else %>
+	Sem produtos. Nothing to do here.
+<% end %>
+

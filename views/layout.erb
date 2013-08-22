@@ -1,0 +1,22 @@
+<html>
+<head><title>Minha Lojinha: A lojinha que é minha</title></head>
+<body>
+<div>
+	<a href="/">Início</a>
+	<a href="/produtos_lista">Produtos</a>
+	<a href="/carrinho">Carrinho de compras</a>
+	<a href="/sobre">Sobre a empresa</a>
+	<%if session[:admin_logado] != nil && session[:admin_logado] != []%> 
+		<a href="/produtos_cadastro">Cadastro de produtos</a>
+		<a href="/clientes_cadastro">Cadastro de cliente</a>
+		<a href="/admin_cadastro">Cadastro de administrador</a>
+		<a href="/clientes_visualizar">Clientes</a>
+		<a href="/vendas_lista">Vendas</a>
+	<%end%>
+	<%if session[:admin_logado] != nil && session[:admin_logado] != [] || session[:cliente_logado] != nil && session[:cliente_logado] != []%>
+		<a href="/logout">Logout</a>
+	<%end%>
+</div>
+	<%= yield %>
+</body>
+</html>

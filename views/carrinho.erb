@@ -1,0 +1,46 @@
+<h1>Carrinho de compras</h1>
+
+<% if @carrinho_lista != nil %>
+	<ul>
+	<% @valor_total_compra = 0%>
+	<% @carrinho_lista.each do |produto| %>
+		<% @quantidade = session[:id_carrinho].select{|e| e.to_i==produto.id}.size %>
+		<% @valor_total = produto.preco * @quantidade %>
+		<li>
+			Nome: <%= produto.nome.capitalize %><br/>
+			Artista:
+				<% @artistas.each do |a| %>
+					<%=a.nome%>
+				<% end %><br/>
+			Gênero:
+				<% @generos.each do |g| %> 
+					<%= g.genero.capitalize %>
+				<% end %><br/>
+			Tipo:
+				<% @tipos.each do |t| %> 
+					<%= t.tipo %>
+				<% end %><br/>
+			Preço: R$ <%= produto.preco %><br/>
+			Valor total: R$ <%= @valor_total %><br/>
+			Quantidade: <%= @quantidade %> un.
+		<% @valor_total_compra = @valor_total_compra+@valor_total%>
+		</li>
+	<% end %>
+	</ul>
+	<p>Valor total da compra: R$ <%= @valor_total_compra %></p>
+	<% session[:valor_total] = @valor_total_compra %>
+	<form action="/limpar_carrinho" method="post">
+		<input type="submit" value="Limpar Carrinho"/>
+	</form>
+	<%if session[:admin_logado] != nil && session[:admin_logado] != [] || session[:cliente_logado] != nil && session[:cliente_logado] != []%>
+		<form action="/venda" method="post">
+			<!--<input type="text" value=@valor_total_compra name="valor_total"/>-->
+			<input type="submit" value="Efetuar compra"/>
+		</form>
+	<%else%>
+		<input type="submit" value="Efetuar compra" disabled/>
+		<p>Tu tem que tá logado pra comprar, abestado</p>
+	<%end%>
+<% else %>
+	Sem produtos. Nothing to do here.
+<% end %>

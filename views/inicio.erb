@@ -1,0 +1,26 @@
+<h1>Bem vindo à Minha Lojinha:</h1>
+
+<h2>A lojinha que é minha</h2>
+
+<strong> RSRSRSRSRS </strong>
+
+<%if session[:admin_logado] == nil || session[:admin_logado] == [] && session[:cliente_logado] == nil || session[:cliente_logado] == []%>
+	<form action="/autenticar" method="post" >
+		Faça seu login, e vamos brincar, amiguinho :D <br/>
+		E-mail: <input type="text" name="email"/>
+		Senha: <input type="password" name="senha"/>
+		<input type="submit" value="Login" /><br/>
+		<a href="/cliente_cadastro">Ainda não tem cadastro? Faça agora. É rápido e fácil :D</a>
+	</form>
+<%else%>
+	<% if session[:admin_logado] != nil && session[:admin_logado] != [] %>
+		<% usuario = Usuario.where("id IN (?)", session[:admin_logado]).first %>
+		<p>Bem vindo, Sr(a). <%= usuario.nome.capitalize %></p>
+	<% else %>
+		<% usuario = Usuario.where("id IN (?)", session[:cliente_logado]).first %>
+		<p>Bem vindo, Sr(a). <%= usuario.nome.capitalize %></p>
+	<% end %>
+<%end%>
+<%=session[:admin_logado]%>
+<%=session[:cliente_logado]%>
+<!-- Produtos aleatórios nesse lugar-->
