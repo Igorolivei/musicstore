@@ -4,10 +4,10 @@
 	<ul>
 		<% @vendas.each do |v| %>
 		<li>
-		<% usuario = Usuario.where("id IN (?)", v.id_usuario).first %>
+		<% usuario = Usuario.find(v.id_usuario) %>
 		Cliente: <%= usuario.nome %>
 		Valor da compra: <%= v.valor_total %>
-		<% status = Statu.where("id IN(?)", v.id_status.first %>
+		<% status = Statu.find(v.id_status) %>
 		Status: <%= status.status %>
 		<form method="post" action="/editar_venda">
 			<select name="status">

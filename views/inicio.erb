@@ -29,6 +29,7 @@ Produtos aleatórios nesse lugar-->
 <% @resultado = ActiveRecord::Base.connection.execute("select DISTINCT id from produtos ORDER BY id DESC LIMIT 10")  
     @resultado.each do |row| %>
 	<!--ai dentro desse each vc acessa row como uma hash-->
+<<<<<<< HEAD
 		<%  @var = Produto.find(row[0]) %> 
 		Produto: <%= @var.nome %> </br>
 		Ano: <%= @var.ano %> </br>
@@ -36,14 +37,28 @@ Produtos aleatórios nesse lugar-->
 		Artista: <%= artista.nome %><br/><br/>
 	<% end %> </br></br>
 
+=======
+		<%  @var = Produto.find(row) %> 
+		<%= @var.nome %>
+		<% i = i + 1 %>
+	<% end %> </p>
+>>>>>>> 735067d5d4bfa779115bba134f5ba49a2fb830e9
 <!-- Lista mais vendidos -->
 <h3>Mais comprados: </h3><br/>
 <% @resultado = ActiveRecord::Base.connection.execute("select p.id AS Produto, COUNT(v.id_produto) AS Vendas from produtosvendidos v INNER JOIN produtos p ON p.id = v.id_produto GROUP BY p.id ORDER BY count(v.id_produto) DESC LIMIT 10")  
     @resultado.each do |row| %>
     <!--ai dentro desse each vc acessa row como uma hash--> 
+<<<<<<< HEAD
 	<%  @var = Produto.find(row[0]) %> 
 	Produto:<%= @var.nome %> </br>
 	Ano:<%= @var.ano %> </br>
 	<% artista = Artista.where("id IN (?)", @var.id_artista).first %> 
 		Artista: <%= artista.nome %><br/><br/>
 	<% end %> </br></br>
+=======
+	<% @var = Produto.find(row[i]) %> 
+	<%= @var.nome %>
+	<%= row[i]%>
+	<% i = i + 1 %>
+	<% end %> </p>
+>>>>>>> 735067d5d4bfa779115bba134f5ba49a2fb830e9
