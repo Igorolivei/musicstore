@@ -21,9 +21,8 @@
 		<p>Bem vindo, Sr(a). <%= usuario.nome.capitalize %></p>
 	<% end %>
 <%end%>
-<!--<%=session[:admin_logado]%>
+<%=session[:admin_logado]%>
 <%=session[:cliente_logado]%>
-Produtos aleatórios nesse lugar-->
 <!-- Lista produtos lançados recentemente -->
 <h3>Produtos Lançados:</h3><br/>
 <% @resultado = ActiveRecord::Base.connection.execute("select DISTINCT id from produtos ORDER BY id DESC LIMIT 10")  

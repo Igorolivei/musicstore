@@ -1,4 +1,4 @@
-﻿require 'sinatra'
+require 'sinatra'
 require 'sinatra/activerecord'
 require './produto.rb'
 require './usuario.rb'
@@ -156,8 +156,10 @@ post '/autenticar' do
     if encontrado[0].tipo_usuario == 0
       session[:admin_logado] = encontrado[0].id
     #Se é cliente
-    else
+    elsif encontrado[0].tipo_usuario == 1
       session[:cliente_logado] = encontrado[0].id
+    else
+    redirect '/'
     end
     redirect '/'
   end
@@ -174,9 +176,9 @@ end
 
 post '/venda' do
   #Cadastra nova venda pra pegar o id e usar no produto vendido
-  if session[:admin_logado] != nil || session[:admin_logado] != []
+  if session[:admin_logado] != nil && session[:admin_logado] != []
     @venda = Venda.new(:id_usuario => session[:admin_logado], :id_status => 1, :valor_total => session[:valor_total]) 
-  elsif session[:cliente_logado] != nil || session[:cliente_logado] != []
+  elsif session[:cliente_logado] != nil && session[:cliente_logado] != []
     @venda = Venda.new(:id_usuario => session[:cliente_logado], :id_status => 1, :valor_total => session[:valor_total]) 
   else
     redirect '/carrinho_lista'
