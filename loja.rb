@@ -8,6 +8,8 @@ require './artista.rb'
 require './venda.rb'
 require './produtosvendido.rb'
 require './statu.rb'
+#require 'file'
+require 'fileutils'
 
 ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => './loja.db')
 
@@ -57,7 +59,11 @@ end
 
 post '/produtos_cadastro' do
   @novo_produto = Produto.new(:nome => params[:nome], :preco => params[:preco], :ano => params[:ano], :id_artista => params[:artista], :id_tipo => params[:tipo], :id_genero => params[:genero])
+  #FileUtils.cp(params[:file][:tempfile], "public/")
   @novo_produto.save
+
+  FileUtils.cp(params[:file][:tempfile].path, "./public/#{@novo_produto.id}.jpg")
+  redirect '/'
   
   #if session[:produtos_cadastrados] == nil
 	# session[:produtos_cadastrados] = []
@@ -249,3 +255,4 @@ get "/clientes_busca" do
 
   erb :clientes_busca
 end
+

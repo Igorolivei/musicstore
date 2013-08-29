@@ -3,7 +3,7 @@
 <% else %>
 	<h1>Cadastre aqui novos produtos</h1>
 
-	<form action="/produtos_cadastro" method="post" >
+	<form action="/produtos_cadastro" method="post" enctype="multipart/form-data">
 		Nome: <input type="text" name="nome"/>
 		Preço: <input type="text" name="preco"/>
 		Ano: <input type="text" name="ano" />
@@ -25,6 +25,11 @@
 				<option value="<%= t.id %>"><%= t.tipo %></option>
 			<% end %>
 		</select>
+
+
+		Imagem:
+		<input type="file" name="file">
 		<input type="submit" value="Salvar" />
 	</form>
+
 <% end %>
