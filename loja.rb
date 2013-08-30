@@ -62,7 +62,7 @@ post '/produtos_cadastro' do
   #FileUtils.cp(params[:file][:tempfile], "public/")
   @novo_produto.save
 
-  FileUtils.cp(params[:file][:tempfile].path, "./public/#{@novo_produto.id}.jpg")
+  FileUtils.cp(params['imagem'][:tempfile].path, "./public/#{@novo_produto.id}.jpg")
   redirect '/'
   
   #if session[:produtos_cadastrados] == nil

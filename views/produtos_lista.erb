@@ -10,17 +10,14 @@
 	<% @produtos.each do |produto| %>
 		<li>
 			Nome: <%= produto.nome.capitalize %><br/>
-			Artista:
-				<% @artistas.each do |a| %>
-					<%=a.nome%>
-				<% end %><br/>
-			Gênero:
-				<% @generos.each do |g| %> 
-					<%= g.genero.capitalize %>
-				<% end %><br/>
+			<% artista = Artista.where("id IN (?)", produto.id_artista).first %>
+			Artista: <%= artista.nome %><br/>
+			<% genero = Genero.where("id IN (?)", produto.id_genero).first %>
+			Gênero: <%= genero.genero %><br/>
 			<% tipo = Tipo.where("id IN (?)", produto.id_tipo).first %>
 			Tipo: <%= tipo.tipo %><br/>
 			Preço: R$ <%= produto.preco %><br/>
+			<img src="<%=produto.id%>.jpg" alt="<%= produto.nome%>" width="200px"/>
 		<form action="/carrinho_add" method="post">
 			<input name="id_carrinho" value="<%=produto.id%>" type="hidden"/>
 			<input type="submit" value="Adicionar ao carrinho"/>
